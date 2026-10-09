@@ -1,0 +1,202 @@
+{
+  "skills": [
+    {
+      "name": "Python",
+      "aliases": ["python", "python3"]
+    },
+    {
+      "name": "Java",
+      "aliases": ["java"]
+    },
+    {
+      "name": "C++",
+      "aliases": ["c++", "cpp"]
+    },
+    {
+      "name": "C",
+      "aliases": ["c programming", "c language"]
+    },
+    {
+      "name": "JavaScript",
+      "aliases": ["javascript", "js"]
+    },
+    {
+      "name": "TypeScript",
+      "aliases": ["typescript", "ts"]
+    },
+    {
+      "name": "HTML",
+      "aliases": ["html", "html5"]
+    },
+    {
+      "name": "CSS",
+      "aliases": ["css", "css3"]
+    },
+    {
+      "name": "Tailwind CSS",
+      "aliases": ["tailwind", "tailwind css"]
+    },
+    {
+      "name": "React",
+      "aliases": ["react", "react.js", "reactjs"]
+    },
+    {
+      "name": "Next.js",
+      "aliases": ["next.js", "nextjs", "next js"]
+    },
+    {
+      "name": "Node.js",
+      "aliases": ["node.js", "nodejs", "node js"]
+    },
+    {
+      "name": "Flask",
+      "aliases": ["flask"]
+    },
+    {
+      "name": "Django",
+      "aliases": ["django"]
+    },
+    {
+      "name": "FastAPI",
+      "aliases": ["fastapi", "fast api"]
+    },
+    {
+      "name": "REST API",
+      "aliases": ["rest api", "restful api", "restful services"]
+    },
+    {
+      "name": "SQL",
+      "aliases": ["sql", "structured query language"]
+    },
+    {
+      "name": "MySQL",
+      "aliases": ["mysql"]
+    },
+    {
+      "name": "PostgreSQL",
+      "aliases": ["postgresql", "postgres", "postgres sql"]
+    },
+    {
+      "name": "SQLite",
+      "aliases": ["sqlite"]
+    },
+    {
+      "name": "MongoDB",
+      "aliases": ["mongodb", "mongo db"]
+    },
+    {
+      "name": "Redis",
+      "aliases": ["redis"]
+    },
+    {
+      "name": "Git",
+      "aliases": ["git"]
+    },
+    {
+      "name": "GitHub",
+      "aliases": ["github", "git hub"]
+    },
+    {
+      "name": "Docker",
+      "aliases": ["docker"]
+    },
+    {
+      "name": "Kubernetes",
+      "aliases": ["kubernetes", "k8s"]
+    },
+    {
+      "name": "Linux",
+      "aliases": ["linux"]
+    },
+    {
+      "name": "AWS",
+      "aliases": ["aws", "amazon web services"]
+    },
+    {
+      "name": "Microsoft Azure",
+      "aliases": ["azure", "microsoft azure"]
+    },
+    {
+      "name": "Google Cloud",
+      "aliases": ["gcp", "google cloud", "google cloud platform"]
+    },
+    {
+      "name": "Machine Learning",
+      "aliases": ["machine learning", "ml"]
+    },
+    {
+      "name": "Deep Learning",
+      "aliases": ["deep learning", "dl"]
+    },
+    {
+      "name": "Natural Language Processing",
+      "aliases": [
+        "natural language processing",
+        "nlp"
+      ]
+    },
+    {
+      "name": "Computer Vision",
+      "aliases": ["computer vision", "cv"]
+    },
+    {
+      "name": "TensorFlow",
+      "aliases": ["tensorflow"]
+    },
+    {
+      "name": "PyTorch",
+      "aliases": ["pytorch", "torch"]
+    },
+    {
+      "name": "Scikit-learn",
+      "aliases": ["scikit-learn", "sklearn", "scikit learn"]
+    },
+    {
+      "name": "Pandas",
+      "aliases": ["pandas"]
+    },
+    {
+      "name": "NumPy",
+      "aliases": ["numpy", "num py"]
+    },
+    {
+      "name": "Matplotlib",
+      "aliases": ["matplotlib"]
+    },
+    {
+      "name": "Seaborn",
+      "aliases": ["seaborn"]
+    },
+    {
+      "name": "Jupyter",
+      "aliases": ["jupyter", "jupyter notebook"]
+    },
+    {
+      "name": "Data Structures",
+      "aliases": [
+        "data structures",
+        "data structure"
+      ]
+    },
+    {
+      "name": "Algorithms",
+      "aliases": ["algorithms", "algorithm"]
+    },
+    {
+      "name": "Object-Oriented Programming",
+      "aliases": [
+        "object oriented programming",
+        "oop",
+        "object-oriented programming"
+      ]
+    },
+    {
+      "name": "API Development",
+      "aliases": ["api development", "api design"]
+    },
+    {
+      "name": "Figma",
+      "aliases": ["figma"]
+    }
+  ]
+}

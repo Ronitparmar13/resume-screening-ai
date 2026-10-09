@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Resume Screening AI</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+<div class="page-shell">
+
+    <header class="topbar">
+
+        <div class="brand">
+            <div class="brand-mark">RS</div>
+
+            <div>
+                <p class="eyebrow">AI RECRUITING TOOL</p>
+                <h1>Resume Screening AI</h1>
+            </div>
+        </div>
+
+        <div class="status-pill">
+            <span class="status-dot"></span>
+            Screening Engine Ready
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-copy">
+
+                <p class="hero-label">
+                    INTELLIGENT CANDIDATE SCREENING
+                </p>
+
+                <h2>
+                    Find the strongest
+                    <span>candidate match.</span>
+                </h2>
+
+                <p class="hero-description">
+                    Compare resumes against a job description using
+                    skill extraction, TF-IDF similarity, and
+                    explainable candidate scoring.
+                </p>
+
+            </div>
+
+            <div class="hero-stat">
+
+                <div class="stat-number">60 / 40</div>
+
+                <div class="stat-label">
+                    Skill Match / TF-IDF Weighting
+                </div>
+
+            </div>
+
+        </section>
+
+
+        {% if errors %}
+
+        <section class="alert-card">
+
+            <div class="alert-icon">!</div>
+
+            <div>
+                {% for error in errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+
+        </section>
+
+        {% endif %}
+
+
+        <form
+            action="{{ url_for('screen_candidates') }}"
+            method="POST"
+            enctype="multipart/form-data"
+            class="screening-form"
+            id="screeningForm"
+        >
+
+            <section class="input-grid">
+
+                <div class="panel job-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <span class="step-number">01</span>
+
+                            <h3>Job Description</h3>
+
+                            <p>
+                                Define what you're looking for.
+                            </p>
+                        </div>
+
+                        <span class="panel-tag">
+                            REQUIRED
+                        </span>
+
+                    </div>
+
+                    <textarea
+                        name="job_description"
+                        id="jobDescription"
+                        placeholder="Paste the job description here...
+
+Example:
+We are looking for a Python developer with experience in Flask,
+REST APIs, SQL, Git and machine learning."
+                        required
+                    >{{ job_description or "" }}</textarea>
+
+                    <div class="textarea-footer">
+                        <span id="jobCount">0 characters</span>
+                        <span>Job description</span>
+                    </div>
+
+                </div>
+
+
+                <div class="panel upload-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <span class="step-number">02</span>
+
+                            <h3>Candidate Resumes</h3>
+
+                            <p>
+                                Upload one or more candidate resumes.
+                            </p>
+                        </div>
+
+                        <span class="panel-tag">
+                            PDF / TXT
+                        </span>
+
+                    </div>
+
+                    <label
+                        for="resumeFiles"
+                        class="drop-zone"
+                        id="dropZone"
+                    >
+
+                        <div class="upload-icon">
+                            ↑
+                        </div>
+
+                        <strong>
+                            Drop resumes here
+                        </strong>
+
+                        <span>
+                            or click to browse
+                        </span>
+
+                        <small>
+                            Multiple files supported · PDF and TXT
+                        </small>
+
+                    </label>
+
+                    <input
+                        type="file"
+                        id="resumeFiles"
+                        name="resumes"
+                        accept=".pdf,.txt"
+                        multiple
+                        hidden
+                        required
+                    >
+
+                    <div
+                        class="file-list"
+                        id="fileList"
+                    ></div>
+
+                </div>
+
+            </section>
+
+
+            <section class="action-row">
+
+                <div class="method-note">
+
+                    <span class="method-icon">✦</span>
+
+                    <div>
+                        <strong>
+                            Explainable screening
+                        </strong>
+
+                        <span>
+                            60% skills + 40% TF-IDF similarity
+                        </span>
+                    </div>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="screen-button"
+                    id="screenButton"
+                >
+                    <span id="buttonText">
+                        Screen Candidates
+                    </span>
+
+                    <span class="button-arrow">→</span>
+                </button>
+
+            </section>
+
+        </form>
+
+
+        {% if ranked_candidates %}
+
+        <section class="results-section">
+
+            <div class="results-header">
+
+                <div>
+                    <p class="hero-label">
+                        SCREENING COMPLETE
+                    </p>
+
+                    <h2>
+                        Candidate ranking
+                    </h2>
+
+                    <p>
+                        {{ ranked_candidates|length }}
+                        candidate{% if ranked_candidates|length != 1 %}s{% endif %}
+                        evaluated against the submitted job description.
+                    </p>
+                </div>
+
+                <a
+                    href="{{ url_for('download_report', filename=report_filename) }}"
+                    class="download-button"
+                >
+                    <span>↓</span>
+                    Download CSV
+                </a>
+
+            </div>
+
+
+            <div class="job-skills-card">
+
+                <div>
+                    <span class="mini-label">
+                        DETECTED JOB SKILLS
+                    </span>
+
+                    <div class="skill-cloud">
+
+                        {% for skill in job_skills %}
+
+                            <span class="skill-chip">
+                                {{ skill }}
+                            </span>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="candidate-list">
+
+                {% for candidate in ranked_candidates %}
+
+                <article class="candidate-card">
+
+                    <div class="rank-block">
+                        <span>RANK</span>
+                        <strong>#{{ candidate.rank }}</strong>
+                    </div>
+
+
+                    <div class="candidate-main">
+
+                        <div class="candidate-heading">
+
+                            <div>
+
+                                <h3>
+                                    {{ candidate.name }}
+                                </h3>
+
+                                <p class="candidate-file">
+                                    {{ candidate.filename }}
+                                </p>
+
+                            </div>
+
+                            <div class="score-ring">
+
+                                <strong>
+                                    {{ "%.1f"|format(candidate.score) }}%
+                                </strong>
+
+                                <span>
+                                    MATCH
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="candidate-meta">
+
+                            {% if candidate.email %}
+                            <span>
+                                ✉ {{ candidate.email }}
+                            </span>
+                            {% endif %}
+
+                            {% if candidate.phone %}
+                            <span>
+                                ☎ {{ candidate.phone }}
+                            </span>
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="score-grid">
+
+                            <div class="score-box">
+
+                                <span>
+                                    SKILL MATCH
+                                </span>
+
+                                <strong>
+                                    {{ "%.1f"|format(candidate.skill_score) }}%
+                                </strong>
+
+                            </div>
+
+                            <div class="score-box">
+
+                                <span>
+                                    TF-IDF MATCH
+                                </span>
+
+                                <strong>
+                                    {{ "%.1f"|format(candidate.tfidf_score) }}%
+                                </strong>
+
+                            </div>
+
+                            <div class="score-box">
+
+                                <span>
+                                    MATCHED SKILLS
+                                </span>
+
+                                <strong>
+                                    {{ candidate.matched_skills|length }}
+                                </strong>
+
+                            </div>
+
+                            <div class="score-box">
+
+                                <span>
+                                    MISSING SKILLS
+                                </span>
+
+                                <strong>
+                                    {{ candidate.missing_skills|length }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="details-grid">
+
+                            <div>
+
+                                <span class="detail-label">
+                                    EDUCATION
+                                </span>
+
+                                {% if candidate.education.degrees %}
+
+                                    {% for degree in candidate.education.degrees %}
+                                        <p>{{ degree }}</p>
+                                    {% endfor %}
+
+                                    {% for institution in candidate.education.institutions %}
+                                        <p class="muted">
+                                            {{ institution }}
+                                        </p>
+                                    {% endfor %}
+
+                                {% else %}
+
+                                    <p class="muted">
+                                        Not detected
+                                    </p>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <div>
+
+                                <span class="detail-label">
+                                    EXPERIENCE
+                                </span>
+
+                                {% if candidate.experience.roles %}
+
+                                    {% for role in candidate.experience.roles %}
+                                        <p>{{ role }}</p>
+                                    {% endfor %}
+
+                                    {% for company in candidate.experience.companies %}
+                                        {% if company not in candidate.experience.roles %}
+                                            <p class="muted">
+                                                {{ company }}
+                                            </p>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                {% else %}
+
+                                    <p class="muted">
+                                        Not detected
+                                    </p>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="skills-section">
+
+                            <div>
+
+                                <span class="detail-label">
+                                    MATCHED SKILLS
+                                </span>
+
+                                <div class="skill-cloud">
+
+                                    {% if candidate.matched_skills %}
+
+                                        {% for skill in candidate.matched_skills %}
+
+                                            <span class="skill-chip matched">
+                                                {{ skill }}
+                                            </span>
+
+                                        {% endfor %}
+
+                                    {% else %}
+
+                                        <span class="muted">
+                                            No matching skills detected
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+
+                            {% if candidate.missing_skills %}
+
+                            <div>
+
+                                <span class="detail-label">
+                                    MISSING SKILLS
+                                </span>
+
+                                <div class="skill-cloud">
+
+                                    {% for skill in candidate.missing_skills %}
+
+                                        <span class="skill-chip missing">
+                                            {{ skill }}
+                                        </span>
+
+                                    {% endfor %}
+
+                                </div>
+
+                            </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+        {% endif %}
+
+    </main>
+
+
+    <footer>
+
+        <span>
+            Resume Screening AI
+        </span>
+
+        <span>
+            Flask · Python · Scikit-learn · NLP
+        </span>
+
+    </footer>
+
+</div>
+
+
+<script
+    src="{{ url_for('static', filename='js/script.js') }}"
+></script>
+
+</body>
+</html>

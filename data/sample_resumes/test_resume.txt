@@ -1,0 +1,27 @@
+Ronit Sharma
+ronit.sharma@example.com
++91 98765 43210
+Vadodara, Gujarat
+
+PROFESSIONAL SUMMARY
+Computer Science graduate interested in software development and AI.
+
+SKILLS
+Python, Flask, JavaScript, SQL, Machine Learning, Git, REST API
+
+EDUCATION
+B.Tech in Computer Science and Engineering
+ABC University
+2022 - 2026
+
+EXPERIENCE
+Software Development Intern
+Tech Solutions
+May 2025 - June 2025
+- Developed Flask web applications.
+- Worked with Python and SQL.
+- Built REST API integrations.
+
+PROJECTS
+AI Resume Screening System
+Built a resume matching application using Python and machine learning.
